@@ -22,7 +22,7 @@ def compile_code():
         # Run the compiler on the provided code
         result = compiler.run(code)
         
-        # Check if the result is an error message
+        # Return result or error
         if result.startswith('Error:'):
             return jsonify({'error': result}), 400
         else:
@@ -32,4 +32,5 @@ def compile_code():
         return jsonify({'error': f'Server error: {str(e)}'}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
